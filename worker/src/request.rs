@@ -168,12 +168,12 @@ impl Request {
 
     /// The HTTP Method associated with this `Request`.
     pub fn method(&self) -> Method {
-        self.method.clone()
+        self.method
     }
 
     /// The URL Path of this `Request`.
-    pub fn path(&self) -> String {
-        self.path.clone()
+    pub fn path(&self) -> &str {
+        &self.path
     }
 
     /// The parsed [`url::Url`] of this `Request`.

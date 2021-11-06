@@ -19,7 +19,7 @@ impl DurableObject for MyClass {
 
     async fn fetch(&mut self, req: Request) -> Result<Response> {
         let handler = async move {
-            match req.path().as_str() {
+            match req.path() {
                 "/hello" => Response::ok("Hello!"),
                 "/storage" => {
                     let mut storage = self.state.storage();
