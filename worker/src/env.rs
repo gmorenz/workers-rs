@@ -12,6 +12,15 @@ extern "C" {
     pub type Env;
 }
 
+// TODO: Why doesn't wasm_bidgen just... do this?
+impl Clone for Env {
+    fn clone(&self) -> Self {
+        let js_value: &JsValue = &*self;
+        let new_value = js_value.clone();
+        Env::from(new_value)
+    }
+}
+
 impl Env {
     fn get_binding<T: EnvBinding>(&self, name: &str) -> Result<T> {
         // Weird rust-analyzer bug is causing it to think Reflect::get is unsafe
