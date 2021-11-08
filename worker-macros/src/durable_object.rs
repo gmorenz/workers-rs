@@ -76,7 +76,10 @@ pub fn expand_macro(tokens: TokenStream) -> syn::Result<TokenStream> {
 
                                 wasm_bindgen_futures::future_to_promise(async move {
                                     static_self._fetch_raw(req.into()).await.map(worker_sys::Response::from).map(wasm_bindgen::JsValue::from)
-                                        .map_err(wasm_bindgen::JsValue::from)
+                                        .map_err(|e| {
+                                            ::worker::console_error!("{}", e);
+                                            wasm_bindgen::JsValue::from(e)
+                                        })
                                 })
                             }
 
