@@ -65,7 +65,7 @@ pub fn expand_macro(attr: TokenStream, item: TokenStream) -> TokenStream {
                     match #input_fn_ident(worker::Request::from(req), env).await.map(worker_sys::Response::from) {
                         Ok(res) => res,
                         Err(e) => {
-                            ::worker::console_log!("{}", &e);
+                            ::worker::console_error!("{}", &e);
                             #error_handling
                         }
                     }

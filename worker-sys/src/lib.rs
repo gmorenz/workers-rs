@@ -15,9 +15,17 @@ macro_rules! console_log {
     ($($t:tt)*) => (unsafe { $crate::global::log(&format_args!($($t)*).to_string()) })
 }
 
+/// When debugging your Worker via `wrangler dev`, `wrangler tail`, or from the Workers Dashboard,
+/// anything passed to this macro will be printed to the terminal or written to the console.
+#[macro_export]
+macro_rules! console_error {
+    ($($t:tt)*) => (unsafe { $crate::global::error(&format_args!($($t)*).to_string()) })
+}
+
 pub mod prelude {
     pub use crate::cf::Cf;
     pub use crate::console_log;
+    pub use crate::console_error;
     pub use crate::durable_object;
     pub use crate::file::File;
     pub use crate::formdata::FormData;
