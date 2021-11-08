@@ -51,7 +51,9 @@ pub fn expand_macro(attr: TokenStream, item: TokenStream) -> TokenStream {
                     }
                 }
                 false => {
-                    quote! { panic!("{}", e) }
+                    quote! {
+                        Response::error("Error: Internal Error", 500).unwrap().into()
+                    }
                 }
             };
 
